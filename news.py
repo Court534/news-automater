@@ -21,3 +21,22 @@ def get_articles_by_query(query):
         "apiKey": API_KEY 
     }
     return _get_articles(query_params)
+
+def _get_articles(params):
+    response = requests.get(URL, params=params)
+    return response.json()["articles"]
+
+    results = []
+    
+    for article in articles:
+        results.append({
+            "title": article["title"],
+            "url": article["url"]
+        })
+        
+    for result in results:
+        print(result["title"])
+        print(result["url"])
+        print("")
+        
+        
