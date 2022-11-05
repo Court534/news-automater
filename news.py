@@ -39,4 +39,18 @@ def _get_articles(params):
         print(result["url"])
         print("")
         
+def get_sources_by_category(category):
+    query_params = {
+        "category": category,
+        "country": "gb",
+        "apiKey": API_KEY 
+    }
+    
+    response = requests.get(URL, params=query_params)
+    sources = response.json()["sources"]
+    
+    for source in sources:
+        print(source["name"])
+        print(source["url"])
+        
         
