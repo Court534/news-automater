@@ -1,4 +1,5 @@
 import requests
+from sys import argv
 import creds
 
 URL = "https://newsapi.org/v2/top-headlines?"
@@ -24,7 +25,7 @@ def get_articles_by_query(query):
 
 def _get_articles(params):
     response = requests.get(URL, params=params)
-    return response.json()["articles"]
+    articles = response.json()["articles"]
 
     results = []
     
@@ -40,9 +41,10 @@ def _get_articles(params):
         print("")
         
 def get_sources_by_category(category):
+    url = "https://newsapi.org/v2/top-headlines/sources"
     query_params = {
         "category": category,
-        "country": "gb",
+        "language": "en",
         "apiKey": API_KEY 
     }
     
@@ -52,5 +54,10 @@ def get_sources_by_category(category):
     for source in sources:
         print(source["name"])
         print(source["url"])
+        
+if __name__ == "__main__":
+    print(f"Getting news for {argv[1]}...\n")
+    get_articles_by_category(argv[1])
+    print(f"Successfully retrieved top {argv[1]} headlines")
         
         
